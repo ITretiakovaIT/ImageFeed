@@ -15,7 +15,7 @@ struct Config {
     private var config: [String: Any]
 
     init() {
-        guard let path = Bundle.main.path(forResource: Constants.plistFileName, ofType: Constants.plistFileType),
+        guard let path = Bundle.main.path(forResource: Constants.plistFileName, ofType: Constants.fileType),
               let xml = FileManager.default.contents(atPath: path),
               let config = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil) as? [String: Any]
         else {
@@ -29,8 +29,8 @@ struct Config {
 private extension Config {
     struct Constants {
         static let plistFileName = "Config"
-        static let plistFileType = "plist"
+        static let fileType = "xcprivacy"
         static let pexelsAPIkeyPropertyName = "PexelsAPIkey"
-        static let errorLoadingPlist = "Error loading configuration from Config.plist"
+        static let errorLoadingPlist = "Error loading configuration from Config.xcprivacy"
     }
 }

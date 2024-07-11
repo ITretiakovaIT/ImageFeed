@@ -9,12 +9,12 @@ import Foundation
 import Alamofire
 
 extension PexelsAPI: ImageNetworkService {
-    func fetchImages(page: Int, pagination: [Query.Pagination]) async throws -> [Image] {
+    func fetchImages(pagination: [Query.Pagination]) async throws -> Images {
         let endPoint = PexelsAPI.Endpoint.curatedPhotos
         let queryItems: [URLQueryItem] = pagination.map { $0.urlQueryItem }
         
         return try await get(
-            APIParams<Empty, [Image]>(
+            APIParams<Empty, Images>(
                 endPoint: endPoint,
                 query: queryItems
             )

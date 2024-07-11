@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ImageNetworkService {
-    func fetchImages(page: Int, pagination: [PexelsAPI.Query.Pagination]) async throws -> [Image]
+    func fetchImages(pagination: [PexelsAPI.Query.Pagination]) async throws -> Images
 }

@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct Images: Codable {
+    let photos: [Image]
+}
+
 struct Image: Codable {
     let id: Int
     let width: Int

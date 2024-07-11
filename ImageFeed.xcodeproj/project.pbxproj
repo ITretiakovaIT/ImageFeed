@@ -13,8 +13,6 @@
 		CD9CA5F62C3FC91C00961469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD9CA5F42C3FC91C00961469 /* Main.storyboard */; };
 		CD9CA5F82C3FC92500961469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD9CA5F72C3FC92500961469 /* Assets.xcassets */; };
 		CD9CA5FB2C3FC92500961469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD9CA5F92C3FC92500961469 /* LaunchScreen.storyboard */; };
-		CD9CA6042C3FD45F00961469 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CD9CA6032C3FD45F00961469 /* Alamofire */; };
-		CD9CA6062C3FD45F00961469 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = CD9CA6052C3FD45F00961469 /* AlamofireDynamic */; };
 		CD9CA6092C3FD4B500961469 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CD9CA6082C3FD4B500961469 /* Kingfisher */; };
 		CD9CA60C2C3FD71C00961469 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9CA60B2C3FD71C00961469 /* NetworkService.swift */; };
 		CD9CA60E2C3FD77400961469 /* FetchImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9CA60D2C3FD77400961469 /* FetchImages.swift */; };
@@ -26,6 +24,8 @@
 		CD9CA61B2C3FDC1900961469 /* APIParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9CA61A2C3FDC1900961469 /* APIParams.swift */; };
 		CD9CA61D2C3FEF6100961469 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9CA61C2C3FEF6100961469 /* Logger.swift */; };
 		CDC523C62C3FFB200064D39E /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC523C52C3FFB200064D39E /* Config.swift */; };
+		CDC523D22C400A0C0064D39E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CDC523D12C400A0C0064D39E /* Alamofire */; };
+		CDC523D32C400BCF0064D39E /* Config.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CDC523C42C3FFAC00064D39E /* Config.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,8 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD9CA6092C3FD4B500961469 /* Kingfisher in Frameworks */,
-				CD9CA6042C3FD45F00961469 /* Alamofire in Frameworks */,
-				CD9CA6062C3FD45F00961469 /* AlamofireDynamic in Frameworks */,
+				CDC523D22C400A0C0064D39E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				CD9CA5FC2C3FC92500961469 /* Info.plist */,
-				CDC523C42C3FFAC00064D39E /* Config.xcprivacy */,
 				CDC523C52C3FFB200064D39E /* Config.swift */,
+				CDC523C42C3FFAC00064D39E /* Config.xcprivacy */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -194,9 +193,8 @@
 			);
 			name = ImageFeed;
 			packageProductDependencies = (
-				CD9CA6032C3FD45F00961469 /* Alamofire */,
-				CD9CA6052C3FD45F00961469 /* AlamofireDynamic */,
 				CD9CA6082C3FD4B500961469 /* Kingfisher */,
+				CDC523D12C400A0C0064D39E /* Alamofire */,
 			);
 			productName = ImageFeed;
 			productReference = CD9CA5EB2C3FC91C00961469 /* ImageFeed.app */;
@@ -227,8 +225,8 @@
 			);
 			mainGroup = CD9CA5E22C3FC91C00961469;
 			packageReferences = (
-				CD9CA6022C3FD45F00961469 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CD9CA6072C3FD4B500961469 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				CDC523D02C400A0C0064D39E /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = CD9CA5EC2C3FC91C00961469 /* Products */;
 			projectDirPath = "";
@@ -245,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD9CA5FB2C3FC92500961469 /* LaunchScreen.storyboard in Resources */,
+				CDC523D32C400BCF0064D39E /* Config.xcprivacy in Resources */,
 				CD9CA5F82C3FC92500961469 /* Assets.xcassets in Resources */,
 				CD9CA5F62C3FC91C00961469 /* Main.storyboard in Resources */,
 			);
@@ -423,7 +422,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2PHXQHS96C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_FILE = ImageFeed/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -451,7 +450,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2PHXQHS96C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_FILE = ImageFeed/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -494,14 +493,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CD9CA6022C3FD45F00961469 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
 		CD9CA6072C3FD4B500961469 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -510,23 +501,26 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		CDC523D02C400A0C0064D39E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CD9CA6032C3FD45F00961469 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CD9CA6022C3FD45F00961469 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		CD9CA6052C3FD45F00961469 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CD9CA6022C3FD45F00961469 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
 		CD9CA6082C3FD4B500961469 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CD9CA6072C3FD4B500961469 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		CDC523D12C400A0C0064D39E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDC523D02C400A0C0064D39E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
