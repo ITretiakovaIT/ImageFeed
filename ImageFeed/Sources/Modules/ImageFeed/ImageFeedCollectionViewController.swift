@@ -7,16 +7,14 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class ImageFeedCollectionViewController: UICollectionViewController {
     private let viewModel: ImageFeedViewModel
     
     init(viewModel: ImageFeedViewModel) {
         self.viewModel = viewModel
-        let layout = UICollectionViewFlowLayout() // TODO: Make init from nib without flow layout
-        layout.minimumLineSpacing = 40 // Space between rows
+        let layout = CustomFlowLayout()
         super.init(collectionViewLayout: layout)
+        layout.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -26,11 +24,23 @@ class ImageFeedCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.register(ImageFeedCollectionViewCell.self, forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
+        setupCell()
+        setupBackground()
         
         fetchPhotos()
-        //TODO: Remove
-        view.backgroundColor = .white
+    }
+}
+
+// MARK: - Helpers
+private extension ImageFeedCollectionViewController {
+    func setupCell() {
+        collectionView.register(UINib(nibName: "ImageFeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
+
+//        collectionView.register(ImageFeedCollectionViewCell.self, forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
+    }
+    
+    func setupBackground() {
+//        view.backgroundColor = .white
         collectionView.backgroundColor = .white
     }
 }
@@ -46,14 +56,14 @@ private extension ImageFeedCollectionViewController {
                     self.collectionView.reloadData()
                 }
             } catch {
-                print("Error fetching photos: \(error)")
+                Logger.errorDebugLog(error.localizedDescription, category: .Network)
             }
         }
     }
 }
 
 // MARK: - Collection View setup
-extension ImageFeedCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension ImageFeedCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getNumberOfImages()
     }
@@ -66,29 +76,15 @@ extension ImageFeedCollectionViewController: UICollectionViewDelegateFlowLayout 
     }
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.getNumberOfImages() - 2 {
+        if indexPath.row == viewModel.getNumberOfImages() - 4 {
             fetchPhotos()
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photo = viewModel.getImage(at: indexPath)
-            let detailVC = PhotoDetailViewController(photo: photo)
-            navigationController?.pushViewController(detailVC, animated: true)
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = collectionView.frame.width - 40
-//        let imgHeight = calculateImageHeight(sourceImage: viewModel.getImage(at: indexPath), scaledToWidth: width)
-//        return CGSize(width: width,height: imgHeight)
-        
-        let photo = viewModel.getImage(at: indexPath)
-        let width = (collectionView.bounds.width - 40) / 2
-        let aspectRatio = CGFloat(photo.width) / CGFloat(photo.height)
-        let height = width / aspectRatio
-        return CGSize(width: width, height: height)
+        let detailVC = PhotoDetailViewController(photo: photo)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     // TODO: Think about turn on/off shadow on scroll
@@ -111,4 +107,12 @@ extension ImageFeedCollectionViewController: UICollectionViewDelegateFlowLayout 
 //            cell.layer.shadowOpacity = enabled ? 0.25 : 0.0
 //        }
 //    }
+}
+
+extension ImageFeedCollectionViewController: CustomFlowLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, aspectRatioForImageAtIndexPath indexPath:IndexPath) -> CGFloat {
+        let photo = viewModel.getImage(at: indexPath)
+        let aspectRatio = CGFloat(photo.width) / CGFloat(photo.height)
+        return aspectRatio
+    }
 }

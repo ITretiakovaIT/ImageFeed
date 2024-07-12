@@ -25,7 +25,6 @@
 		CDC523C62C3FFB200064D39E /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC523C52C3FFB200064D39E /* Config.swift */; };
 		CDC523D22C400A0C0064D39E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CDC523D12C400A0C0064D39E /* Alamofire */; };
 		CDC523D32C400BCF0064D39E /* Config.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CDC523C42C3FFAC00064D39E /* Config.xcprivacy */; };
-		CDC523DA2C4011B20064D39E /* ImageFeedCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC523D82C4011B20064D39E /* ImageFeedCollectionViewController.xib */; };
 		CDC523DB2C4011B20064D39E /* ImageFeedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC523D92C4011B20064D39E /* ImageFeedCollectionViewController.swift */; };
 		CDC523DF2C40138F0064D39E /* ImageFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC523DE2C40138F0064D39E /* ImageFeedViewModel.swift */; };
 		CDC523E22C4014B10064D39E /* ImageFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC523E02C4014B10064D39E /* ImageFeedCollectionViewCell.swift */; };
@@ -54,7 +53,6 @@
 		CD9CA61C2C3FEF6100961469 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CDC523C42C3FFAC00064D39E /* Config.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Config.xcprivacy; sourceTree = "<group>"; };
 		CDC523C52C3FFB200064D39E /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		CDC523D82C4011B20064D39E /* ImageFeedCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFeedCollectionViewController.xib; sourceTree = "<group>"; };
 		CDC523D92C4011B20064D39E /* ImageFeedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFeedCollectionViewController.swift; sourceTree = "<group>"; };
 		CDC523DE2C40138F0064D39E /* ImageFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedViewModel.swift; sourceTree = "<group>"; };
 		CDC523E02C4014B10064D39E /* ImageFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				CDC523D92C4011B20064D39E /* ImageFeedCollectionViewController.swift */,
-				CDC523D82C4011B20064D39E /* ImageFeedCollectionViewController.xib */,
 				CDC523DE2C40138F0064D39E /* ImageFeedViewModel.swift */,
 				CDC523E02C4014B10064D39E /* ImageFeedCollectionViewCell.swift */,
 				CDC523E12C4014B10064D39E /* ImageFeedCollectionViewCell.xib */,
@@ -292,7 +289,6 @@
 				CDC523D32C400BCF0064D39E /* Config.xcprivacy in Resources */,
 				CDC523E32C4014B10064D39E /* ImageFeedCollectionViewCell.xib in Resources */,
 				CD9CA5F82C3FC92500961469 /* Assets.xcassets in Resources */,
-				CDC523DA2C4011B20064D39E /* ImageFeedCollectionViewController.xib in Resources */,
 				CD9CA5F62C3FC91C00961469 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
