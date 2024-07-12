@@ -12,10 +12,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let Pfd = PexelsAPI.Endpoint.curatedPhotos
-        let uf = PexelsAPI.baseURL
+        
+        let api = PexelsAPI(apiKey: Config().pexelsAPIKey)
+        Task {
+            do {
+                let imgs = try await api.fetchImages(pagination: [.page(value: 1), .limit(value: 10)])
+                print(imgs)
+            } catch {
+                Logger.errorDebugLog(error.localizedDescription, category: .Network)
+            }
+        }
     }
-
 
 }
 
