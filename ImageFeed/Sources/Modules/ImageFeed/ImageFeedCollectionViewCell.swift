@@ -16,28 +16,26 @@ class ImageFeedCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupView()
+        setupViews()
         setupShadowAndCorners()
     }
     
-    private func setupView() {
+    private func setupViews() {
         authorLabel.layer.cornerRadius = 5
         authorLabel.clipsToBounds = true
-        
-        imageView.clipsToBounds = true
     }
     
     private func setupShadowAndCorners() {
         contentView.layer.cornerRadius = 20
         contentView.clipsToBounds = true
         
+        layer.masksToBounds = false
+        
         layer.cornerRadius = 20
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 8
-        
-        layer.masksToBounds = false
         
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
