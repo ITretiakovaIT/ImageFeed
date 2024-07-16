@@ -41,7 +41,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
         for column in 0..<numberOfColumns {
             xOffset.append(CGFloat(column) * columnWidth)
         }
-        var column = 0
+
         var yOffset: [CGFloat] = cache.isEmpty ? .init(repeating: 0, count: numberOfColumns) : yOffsetFromCache()
         
         let startIndex = cache.isEmpty ? 0 : cache.count
@@ -51,7 +51,19 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
             
             let imageAspectRatio = delegate?.collectionView(collectionView, aspectRatioForImageAtIndexPath: indexPath) ?? 180
             let height = columnWidth / imageAspectRatio + (cellPadding * 2)
-            let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
+            
+            // Find the shortest column
+            var shortestColumn = 0
+            var shortestHeight = yOffset[0]
+            
+            for column in 1..<numberOfColumns {
+                if yOffset[column] < shortestHeight {
+                    shortestHeight = yOffset[column]
+                    shortestColumn = column
+                }
+            }
+            
+            let frame = CGRect(x: xOffset[shortestColumn], y: yOffset[shortestColumn], width: columnWidth, height: height)
             let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
             
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -59,9 +71,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
             cache.append(attributes)
             
             contentHeight = max(contentHeight, frame.maxY)
-            yOffset[column] = yOffset[column] + height
-            
-            column = column < (numberOfColumns - 1) ? (column + 1) : 0
+            yOffset[shortestColumn] = yOffset[shortestColumn] + height
         }
     }
     
