@@ -18,6 +18,8 @@ final class DetailImageViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var fullSizeImageView: UIImageView!
     
+    // MARK: - Initialization
+    
     init(viewModel: DetailImageViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

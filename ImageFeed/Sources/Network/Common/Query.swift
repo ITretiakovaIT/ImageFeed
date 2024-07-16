@@ -29,7 +29,7 @@ extension PexelsAPI {
 
             var stringKey: String {
                 switch self {
-                case .limit: return "perPage"
+                case .limit: return "per_page"
                 case .page: return "page"
                 }
             }

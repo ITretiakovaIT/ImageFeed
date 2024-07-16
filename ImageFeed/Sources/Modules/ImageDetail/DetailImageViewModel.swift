@@ -13,7 +13,6 @@ class DetailImageViewModel {
     
     var fullSizeImageURL: String
     var backgroundImageURL: String
-//    let backgroundImage: UIImage
     
     // MARK: - Initialization
     

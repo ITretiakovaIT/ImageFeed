@@ -9,7 +9,12 @@ import UIKit
 import Kingfisher
 
 class ImageFeedCollectionViewController: UICollectionViewController {
+    
+    // MARK: - Properties
+    
     private let viewModel: ImageFeedViewModel
+    
+    // MARK: - Initialization
     
     init(viewModel: ImageFeedViewModel) {
         self.viewModel = viewModel
@@ -21,6 +26,8 @@ class ImageFeedCollectionViewController: UICollectionViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +84,7 @@ private extension ImageFeedCollectionViewController {
     }
 }
 
-// MARK: - Collection View setup
+// MARK: - Collection View delegate, dataSource
 extension ImageFeedCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getNumberOfImages()
@@ -115,6 +122,7 @@ extension ImageFeedCollectionViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSourcePrefetching
 extension ImageFeedCollectionViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         let urls = indexPaths.compactMap { URL(string: viewModel.getImage(at: $0).src.medium) }
@@ -123,6 +131,7 @@ extension ImageFeedCollectionViewController: UICollectionViewDataSourcePrefetchi
     }
 }
 
+// MARK: - CustomFlowLayoutDelegate
 extension ImageFeedCollectionViewController: CustomFlowLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, aspectRatioForImageAtIndexPath indexPath:IndexPath) -> CGFloat {
         return viewModel.getAspectRatioForImage(at: indexPath)

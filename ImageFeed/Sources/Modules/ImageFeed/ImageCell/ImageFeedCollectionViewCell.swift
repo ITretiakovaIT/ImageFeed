@@ -9,10 +9,15 @@ import UIKit
 import Kingfisher
 
 class ImageFeedCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
     static let reuseIdentifier = "ImageFeedCollectionViewCell"
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var authorLabel: PaddingLabel!
+    
+    // MARK: - View Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,12 +25,26 @@ class ImageFeedCollectionViewCell: UICollectionViewCell {
         setupShadowAndCorners()
     }
     
-    private func setupViews() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath
+    }
+    
+    func configure(with image: Image) {
+        authorLabel.text = image.photographer.uppercased()
+        imageView.kf.setImage(with: URL(string: image.src.medium))
+    }
+}
+
+// MARK: - Setup UI
+private extension ImageFeedCollectionViewCell {
+    func setupViews() {
         authorLabel.layer.cornerRadius = 5
         authorLabel.clipsToBounds = true
     }
     
-    private func setupShadowAndCorners() {
+    func setupShadowAndCorners() {
         contentView.layer.cornerRadius = 20
         contentView.clipsToBounds = true
         
@@ -39,16 +58,5 @@ class ImageFeedCollectionViewCell: UICollectionViewCell {
         
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath
-    }
-    
-    func configure(with image: Image) {
-        authorLabel.text = image.photographer.uppercased()
-        imageView.kf.setImage(with: URL(string: image.src.medium))
     }
 }

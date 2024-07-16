@@ -8,18 +8,25 @@
 import Foundation
 
 class ImageFeedViewModel {
+    
+    // MARK: - Properties
+    
     private let apiService: PexelsAPI
     private var images: [Image] = []
     private var currentPage = 1
 
+    // MARK: - Initialization
+    
     init(apiService: PexelsAPI) {
         self.apiService = apiService
     }
 
+    
     func fetchImages() async throws -> [Image] {
         let paginationQuery: [PexelsAPI.Query.Pagination] = [.page(value: currentPage), .limit(value: 20)]
         
         let imgs = try await apiService.fetchImages(pagination: paginationQuery)
+        
         images.append(contentsOf: imgs.photos)
         currentPage += 1
         
