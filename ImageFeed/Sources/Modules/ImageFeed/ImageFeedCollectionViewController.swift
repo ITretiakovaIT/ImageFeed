@@ -13,6 +13,7 @@ class ImageFeedCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     
     private let viewModel: ImageFeedViewModel
+    private var isFetchingData: Bool = false
     
     // MARK: - Initialization
     
@@ -42,7 +43,7 @@ class ImageFeedCollectionViewController: UICollectionViewController {
 // MARK: - Setup View
 private extension ImageFeedCollectionViewController {
     func setupCell() {
-        collectionView.register(UINib(nibName: "ImageFeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: ImageFeedCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
     }
     
     func setupCollectionView() {
@@ -58,6 +59,7 @@ private extension ImageFeedCollectionViewController {
 // MARK: - API calls
 private extension ImageFeedCollectionViewController {
     func fetchImages() {
+        isFetchingData = true
         Task {
             do {
                 let images = try await viewModel.fetchImages()
@@ -68,6 +70,7 @@ private extension ImageFeedCollectionViewController {
             } catch {
                 Logger.errorDebugLog(error.localizedDescription, category: .Network)
             }
+            isFetchingData = false
         }
     }
 }
@@ -96,9 +99,9 @@ extension ImageFeedCollectionViewController {
         cell.configure(with: image)
         return cell
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.getNumberOfImages() - 4 {
+        if indexPath.item >= viewModel.getNumberOfImages() - 4, !isFetchingData {
             fetchImages()
         }
     }
@@ -106,7 +109,7 @@ extension ImageFeedCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = viewModel.getImage(at: indexPath)
         
-        let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.large, backgroundImageURL: image.src.medium)
+        let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.large2x, backgroundImageURL: image.src.medium)
         let detailImageVC = DetailImageViewController(viewModel: viewModel)
         
         detailImageVC.modalPresentationStyle = .overFullScreen

@@ -11,7 +11,7 @@ import Kingfisher
 class ImageFeedCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    
+    static let nibName = "ImageFeedCollectionViewCell"
     static let reuseIdentifier = "ImageFeedCollectionViewCell"
     
     @IBOutlet weak var imageView: UIImageView!

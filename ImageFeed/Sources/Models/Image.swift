@@ -20,6 +20,6 @@ struct Image: Codable {
 }
 
 struct ImageSrc: Codable {
-    let large: String
+    let large2x: String
     let medium: String
 }
