@@ -49,10 +49,6 @@ class ImageFeedCollectionViewCell: UICollectionViewCell {
     
     func configure(with image: Image) {
         authorLabel.text = image.photographer.uppercased()
-        imageView.kf.setImage(with: URL(string: image.src.large)) { result in
-            if case .success(let value)  = result {
-                ImageCache.default.store(value.image, forKey: image.src.large) // TODO: check cache
-            }
-        } // TODO: think about kingsfisher here {
+        imageView.kf.setImage(with: URL(string: image.src.medium))
     }
 }

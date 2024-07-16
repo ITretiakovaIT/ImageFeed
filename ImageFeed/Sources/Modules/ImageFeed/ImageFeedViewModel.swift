@@ -16,12 +16,14 @@ class ImageFeedViewModel {
         self.apiService = apiService
     }
 
-    func fetchImages() async throws {
+    func fetchImages() async throws -> [Image] {
         let paginationQuery: [PexelsAPI.Query.Pagination] = [.page(value: currentPage), .limit(value: 20)]
         
         let imgs = try await apiService.fetchImages(pagination: paginationQuery)
         images.append(contentsOf: imgs.photos)
         currentPage += 1
+        
+        return imgs.photos
     }
 
     func getImage(at indexPath: IndexPath) -> Image {

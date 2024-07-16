@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ImageFeedCollectionViewController: UICollectionViewController {
     private let viewModel: ImageFeedViewModel
@@ -31,7 +32,7 @@ class ImageFeedCollectionViewController: UICollectionViewController {
     }
 }
 
-// MARK: - Helpers
+// MARK: - Setup View
 private extension ImageFeedCollectionViewController {
     func setupCell() {
         collectionView.register(UINib(nibName: "ImageFeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
@@ -42,6 +43,8 @@ private extension ImageFeedCollectionViewController {
         
         collectionView.contentInset.left = 8
         collectionView.contentInset.right = 8
+        
+        collectionView.prefetchDataSource = self
     }
 }
 
@@ -50,15 +53,27 @@ private extension ImageFeedCollectionViewController {
     func fetchImages() {
         Task {
             do {
-                try await viewModel.fetchImages()
+                let images = try await viewModel.fetchImages()
                 
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.updateCollectionView(with: images)
                 }
             } catch {
                 Logger.errorDebugLog(error.localizedDescription, category: .Network)
             }
         }
+    }
+}
+
+// MARK: - Helpers
+private extension ImageFeedCollectionViewController {
+    func updateCollectionView(with newImages: [Image]) {
+        let startIndex = viewModel.getNumberOfImages() - newImages.count
+        let indexPaths = (startIndex..<viewModel.getNumberOfImages()).map { IndexPath(item: $0, section: 0) }
+        
+        collectionView.performBatchUpdates({
+            collectionView.insertItems(at: indexPaths)
+        }, completion: nil)
     }
 }
 
@@ -84,13 +99,19 @@ extension ImageFeedCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = viewModel.getImage(at: indexPath)
         
-        let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.original, backgroundImageURL: image.src.large)
+        let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.large, backgroundImageURL: image.src.medium)
         let detailImageVC = DetailImageViewController(viewModel: viewModel)
         
         detailImageVC.modalPresentationStyle = .overFullScreen
         detailImageVC.modalTransitionStyle = .coverVertical
         
         present(detailImageVC, animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? ImageFeedCollectionViewCell else { return }
+        
+        cell.imageView.kf.cancelDownloadTask()
     }
     
     // TODO: Think about turn on/off shadow on scroll
@@ -113,6 +134,14 @@ extension ImageFeedCollectionViewController {
 //            cell.layer.shadowOpacity = enabled ? 0.25 : 0.0
 //        }
 //    }
+}
+
+extension ImageFeedCollectionViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let urls = indexPaths.compactMap { URL(string: viewModel.getImage(at: $0).src.medium) }
+        
+        ImagePrefetcher(urls: urls).start()
+    }
 }
 
 extension ImageFeedCollectionViewController: CustomFlowLayoutDelegate {

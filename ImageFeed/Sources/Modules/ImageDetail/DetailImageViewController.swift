@@ -40,8 +40,10 @@ final class DetailImageViewController: UIViewController {
     private func setupUI() {
         // Load background image with Kingfisher (used already cached img URL from coll view cell)
         backgroundImage.kf.setImage(with: URL(string: viewModel.backgroundImageURL))
+        // Load full size image with Kingfisher
+        fullSizeImageView.kf.setImage(with: URL(string: viewModel.fullSizeImageURL))
         // Apply blur effect to background image
-        self.backgroundImage.setBlurEffect(radius: 5)
+        backgroundImage.setBlurEffect(radius: 3)
     }
     
     // MARK: - Actions

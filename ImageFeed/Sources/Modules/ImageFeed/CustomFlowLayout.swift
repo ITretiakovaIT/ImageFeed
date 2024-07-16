@@ -14,10 +14,10 @@ protocol CustomFlowLayoutDelegate: AnyObject {
 class CustomFlowLayout: UICollectionViewFlowLayout {
     weak var delegate: CustomFlowLayoutDelegate?
     
+    private var cache: [UICollectionViewLayoutAttributes] = []
+    
     private let numberOfColumns = 2
     private let cellPadding: CGFloat = 8
-    
-    private var cache: [UICollectionViewLayoutAttributes] = []
     
     private var contentHeight: CGFloat = 0
     
@@ -34,12 +34,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func prepare() {
-        guard //cache.isEmpty,
-            let collectionView = collectionView
-        else {
-            print("return bcs of cache")
-            return
-        }
+        guard let collectionView = collectionView else { return }
         
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset: [CGFloat] = []
@@ -47,21 +42,16 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
             xOffset.append(CGFloat(column) * columnWidth)
         }
         var column = 0
-        var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+        var yOffset: [CGFloat] = cache.isEmpty ? .init(repeating: 0, count: numberOfColumns) : yOffsetFromCache()
         
-        for item in 0..<collectionView.numberOfItems(inSection: 0) {
+        let startIndex = cache.isEmpty ? 0 : cache.count
+        
+        for item in startIndex..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
             
-            print("prepare \(indexPath.row)")
-            
-            let imageAspectRatio = delegate?.collectionView(
-                collectionView,
-                aspectRatioForImageAtIndexPath: indexPath) ?? 180
+            let imageAspectRatio = delegate?.collectionView(collectionView, aspectRatioForImageAtIndexPath: indexPath) ?? 180
             let height = columnWidth / imageAspectRatio + (cellPadding * 2)
-            let frame = CGRect(x: xOffset[column],
-                               y: yOffset[column],
-                               width: columnWidth,
-                               height: height)
+            let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
             let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
             
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -76,12 +66,10 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        print("layoutAttributesForElements - get items from cache")
         var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
         
         for attributes in cache {
             if attributes.frame.intersects(rect) {
-                print("layoutAttributesForElements - visibleLayoutAttributes.append(attributes)")
                 visibleLayoutAttributes.append(attributes)
             }
         }
@@ -89,7 +77,15 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("layoutAttributesForItem - get items from cache")
         return cache[indexPath.item]
+    }
+    
+    private func yOffsetFromCache() -> [CGFloat] {
+        var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+        for attributes in cache {
+            let column = Int(attributes.frame.minX / (contentWidth / CGFloat(numberOfColumns)))
+            yOffset[column] = max(yOffset[column], attributes.frame.maxY)
+        }
+        return yOffset
     }
 }
