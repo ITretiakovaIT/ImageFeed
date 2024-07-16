@@ -33,4 +33,9 @@ class ImageFeedViewModel {
     func getNumberOfImages() -> Int {
         return images.count
     }
+    
+    func getAspectRatioForImage(at indexPath: IndexPath) -> CGFloat {
+        let photo = getImage(at: indexPath)
+        return CGFloat(photo.width) / CGFloat(photo.height)
+    }
 }

@@ -113,27 +113,6 @@ extension ImageFeedCollectionViewController {
         
         cell.imageView.kf.cancelDownloadTask()
     }
-    
-    // TODO: Think about turn on/off shadow on scroll
-//    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        toggleCellShadows(enabled: false)
-//    }
-//    
-//    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-////        toggleCellShadows(enabled: true)
-//    }
-//    
-//    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-////        if !decelerate {
-//            toggleCellShadows(enabled: true)
-////        }
-//    }
-//    
-//    private func toggleCellShadows(enabled: Bool) {
-//        for cell in collectionView.visibleCells as! [ImageFeedCollectionViewCell] {
-//            cell.layer.shadowOpacity = enabled ? 0.25 : 0.0
-//        }
-//    }
 }
 
 extension ImageFeedCollectionViewController: UICollectionViewDataSourcePrefetching {
@@ -146,8 +125,6 @@ extension ImageFeedCollectionViewController: UICollectionViewDataSourcePrefetchi
 
 extension ImageFeedCollectionViewController: CustomFlowLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, aspectRatioForImageAtIndexPath indexPath:IndexPath) -> CGFloat {
-        let photo = viewModel.getImage(at: indexPath)
-        let aspectRatio = CGFloat(photo.width) / CGFloat(photo.height)
-        return aspectRatio
+        return viewModel.getAspectRatioForImage(at: indexPath)
     }
 }
