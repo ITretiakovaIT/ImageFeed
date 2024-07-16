@@ -82,18 +82,10 @@ extension ImageFeedCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let photo = viewModel.getImage(at: indexPath)
-//        let detailVC = PhotoDetailViewController(photo: photo)
-//        present(detailVC, animated: true)
-        
         let image = viewModel.getImage(at: indexPath)
         
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier, for: indexPath) as! ImageFeedCollectionViewCell
-//        let img = cell.imageView.image
-        
         let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.original, backgroundImageURL: image.src.large)
-        let detailImageVC = DetailImageViewController(nibName: "DetailImageViewController", bundle: nil)
-        detailImageVC.viewModel = viewModel
+        let detailImageVC = DetailImageViewController(viewModel: viewModel)
         
         detailImageVC.modalPresentationStyle = .overFullScreen
         detailImageVC.modalTransitionStyle = .coverVertical

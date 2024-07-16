@@ -8,20 +8,30 @@
 import UIKit
 import Kingfisher
 
-class DetailImageViewController: UIViewController {
+final class DetailImageViewController: UIViewController {
     
     // MARK: - Properties
     
-    var viewModel: DetailImageViewModel!
+    var viewModel: DetailImageViewModel
     
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var fullSizeImageView: UIImageView!
     
+    init(viewModel: DetailImageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
     }
     
