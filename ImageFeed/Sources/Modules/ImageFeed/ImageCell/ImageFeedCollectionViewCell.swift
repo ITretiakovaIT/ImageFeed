@@ -12,7 +12,7 @@ class ImageFeedCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "ImageFeedCollectionViewCell"
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var authorLabel: PaddingLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

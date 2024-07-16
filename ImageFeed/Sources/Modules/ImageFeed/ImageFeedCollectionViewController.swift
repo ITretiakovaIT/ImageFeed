@@ -25,9 +25,9 @@ class ImageFeedCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         setupCell()
-        setupBackground()
+        setupCollectionView()
         
-        fetchPhotos()
+        fetchImages()
     }
 }
 
@@ -35,19 +35,19 @@ class ImageFeedCollectionViewController: UICollectionViewController {
 private extension ImageFeedCollectionViewController {
     func setupCell() {
         collectionView.register(UINib(nibName: "ImageFeedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
-
-//        collectionView.register(ImageFeedCollectionViewCell.self, forCellWithReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier)
     }
     
-    func setupBackground() {
-//        view.backgroundColor = .white
+    func setupCollectionView() {
         collectionView.backgroundColor = .white
+        
+        collectionView.contentInset.left = 8
+        collectionView.contentInset.right = 8
     }
 }
 
 // MARK: - API calls
 private extension ImageFeedCollectionViewController {
-    func fetchPhotos() {
+    func fetchImages() {
         Task {
             do {
                 try await viewModel.fetchImages()
@@ -70,21 +70,35 @@ extension ImageFeedCollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier, for: indexPath) as! ImageFeedCollectionViewCell
-        let photo = viewModel.getImage(at: indexPath)
-        cell.configure(with: photo)
+        let image = viewModel.getImage(at: indexPath)
+        cell.configure(with: image)
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == viewModel.getNumberOfImages() - 4 {
-            fetchPhotos()
+            fetchImages()
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = viewModel.getImage(at: indexPath)
-        let detailVC = PhotoDetailViewController(photo: photo)
-        navigationController?.pushViewController(detailVC, animated: true)
+//        let photo = viewModel.getImage(at: indexPath)
+//        let detailVC = PhotoDetailViewController(photo: photo)
+//        present(detailVC, animated: true)
+        
+        let image = viewModel.getImage(at: indexPath)
+        
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageFeedCollectionViewCell.reuseIdentifier, for: indexPath) as! ImageFeedCollectionViewCell
+//        let img = cell.imageView.image
+        
+        let viewModel = DetailImageViewModel(fullSizeImageURL: image.src.original, backgroundImageURL: image.src.large)
+        let detailImageVC = DetailImageViewController(nibName: "DetailImageViewController", bundle: nil)
+        detailImageVC.viewModel = viewModel
+        
+        detailImageVC.modalPresentationStyle = .overFullScreen
+        detailImageVC.modalTransitionStyle = .coverVertical
+        
+        present(detailImageVC, animated: true)
     }
     
     // TODO: Think about turn on/off shadow on scroll

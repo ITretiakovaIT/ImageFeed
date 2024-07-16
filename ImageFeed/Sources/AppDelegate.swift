@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let imageFeedVC = ImageFeedCollectionViewController(viewModel: viewModel)
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: imageFeedVC)
+        window?.rootViewController = imageFeedVC
         window?.makeKeyAndVisible()
         
         return true

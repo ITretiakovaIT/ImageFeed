@@ -19,12 +19,26 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7yH-4R-dw8">
                         <rect key="frame" x="0.0" y="0.0" width="177" height="242"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SARAH RODRIGUEZ" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV0-Qa-1ua">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SARAH RODRIGUEZ" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV0-Qa-1ua" customClass="PaddingLabel" customModule="ImageFeed" customModuleProvider="target">
                         <rect key="frame" x="87.666666666666686" y="9" width="80.333333333333314" height="14"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="topInset">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="bottomInset">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
             </view>
@@ -32,11 +46,11 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7yH-4R-dw8" secondAttribute="trailing" id="09A-fK-xey"/>
                 <constraint firstItem="yV0-Qa-1ua" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="IRa-gV-XC4"/>
+                <constraint firstItem="yV0-Qa-1ua" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="IZ8-JK-78w"/>
                 <constraint firstItem="7yH-4R-dw8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="LOA-lL-hXC"/>
                 <constraint firstAttribute="bottom" secondItem="7yH-4R-dw8" secondAttribute="bottom" id="OdY-lR-0Lw"/>
                 <constraint firstItem="7yH-4R-dw8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YxZ-7E-mdY"/>
                 <constraint firstAttribute="trailing" secondItem="yV0-Qa-1ua" secondAttribute="trailing" constant="9" id="frl-Dq-MyG"/>
-                <constraint firstItem="yV0-Qa-1ua" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="vsE-0C-19x"/>
             </constraints>
             <size key="customSize" width="177" height="242"/>
             <connections>
@@ -46,4 +60,9 @@
             <point key="canvasLocation" x="229.7709923664122" y="88.028169014084511"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="yV0-Qa-1ua">
+            <size key="intrinsicContentSize" width="80.333333333333329" height="14"/>
+        </designable>
+    </designables>
 </document>
